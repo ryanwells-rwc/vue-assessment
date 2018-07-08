@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <UserProfile />
+    <UserProfile :imageUrl="imageUrl" :showForm="showForm" :firstName="firstName" :lastName="lastName" :phone="phone" :email="email" :rate="rate"/>
   </div>
 </template>
 
@@ -14,6 +14,18 @@ export default {
   components: {
     HelloWorld,
     UserProfile
+  },
+  data() {
+    return {
+      // imageUrl: require('../assets/chris.jpg'),
+      imageUrl: 'imageURLHere',
+      showForm: false,
+      firstName: 'Ryan',
+      lastName: 'O\'Boyle',
+      phone: '(949) 838-9929',
+      email: 'ryanoboyles_email@gmail.com',
+      rate: '35'
+    }
   }
 }
 </script>

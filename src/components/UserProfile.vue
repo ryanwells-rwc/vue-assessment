@@ -1,23 +1,27 @@
 <template>
   <div id="container">
     <div id="row">
-      <div id="col1" v-if="imageUrl == require('../assets/chris.jpg')">
+      <div id="col1" v-if="re.test(imageUrl)">
         <img :src="imageUrl">
       </div>
       <div id="col2">
-        <h1>{{ name }}</h1>
-        <a :href="`tel:${phone}`">{{ phone }}</a> -
-        <a :href="`mailto:${email}`">{{ email }}</a>
+        <h1>{{ firstName }} {{ lastName }}</h1>
+        <a v-if="phone" :href="`tel:${phone}`">{{ phone }}</a>
+        <span v-if="phone && email"> - </span>
+        <a v-if="email" :href="`mailto:${email}`">{{ email }}</a>
         <p>Rate: ${{ rate }}</p>
       </div>
       <button id="editProfile" v-on:click="showForm = !showForm">Edit Profile</button>
     </div>
+    <div>{{ imageUrl }}</div>
     <form v-if="showForm">
       <h2>Editing Profile...</h2>
       <label for="txtImageUrl">Image URL: </label>
       <input type="text" id="txtImageUrl" v-model="imageUrl">
-      <label for="txtName">Name: </label>
-      <input type="text" id="txtName" v-model="name">
+      <label for="txtFirstName">First Name: </label>
+      <input type="text" id="txtFirstName" v-model="firstName">
+      <label for="txtLastName">Last Name: </label>
+      <input type="text" id="txtLastName" v-model="lastName">
       <label for="txtEmail">Email: </label>
       <input type="email" id="txtEmail" v-model="email">
       <label for="txtPhone">Phone: </label>
@@ -31,14 +35,18 @@
 <script>
 export default {
   name: 'UserProfile',
+  props: {
+    imageUrl: null,
+    showForm: null,
+    firstName: null,
+    lastName: null,
+    phone: null,
+    email: null,
+    rate: null
+  },
   data() {
     return {
-      imageUrl: require('../assets/chris.jpg'),
-      showForm: false,
-      name: 'Chris Guadarrama',
-      phone: '(949) 939-3901',
-      email: 'kristop78@gmail.com',
-      rate: '25'
+      re: /\/img\/.*\..*\.jpg/
     }
   }
 }
